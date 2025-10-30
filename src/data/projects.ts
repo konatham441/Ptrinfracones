@@ -1,6 +1,6 @@
-import project1 from "@/assets/project-1.jpg";
+import Home1 from "@/assets/Home1.jpg";
 import project2 from "@/assets/project-2.jpg";
-import project3 from "@/assets/project-3.jpg";
+import Home3 from "@/assets/Home3.jpg";
 
 export interface Project {
   id: number;
@@ -23,7 +23,7 @@ export const projects: Project[] = [
     location: "Gachibowli, Hyderabad",
     priceRange: "₹65L - ₹1.2Cr",
     units: "2 & 3 BHK Apartments",
-    image: project1,
+    image: Home1,
     description:
       "Experience luxury living at PTRinfraCons Serene, where contemporary design meets world-class amenities. Nestled in the heart of Gachibowli, this premium residential project offers spacious apartments with stunning views and unmatched comfort.",
     size: "1200 - 2100 sq.ft",
@@ -71,7 +71,7 @@ export const projects: Project[] = [
     location: "Financial District, Hyderabad",
     priceRange: "₹45L - ₹85L",
     units: "1, 2 & 3 BHK Apartments",
-    image: project3,
+    image: Home3,
     description:
       "Soar above the ordinary at PTRinfraCons Skyline. This high-rise residential complex in the Financial District offers panoramic city views, cutting-edge amenities, and easy connectivity to major IT hubs and commercial centers.",
     size: "650 - 1800 sq.ft",

@@ -29,7 +29,7 @@ const ProjectCard = ({ id, image, title, location, priceRange, units }: ProjectC
       {/* Content */}
       <div className="p-6">
         <h3 className="font-heading text-xl font-bold mb-2">{title}</h3>
-        
+
         <div className="flex items-center text-muted-foreground mb-3">
           <MapPin className="h-4 w-4 mr-1" />
           <span className="text-sm">{location}</span>
