@@ -37,19 +37,22 @@ const Index = () => {
       name: "Priya Sharma",
       location: "PTRinfraCons Serene",
       text: "Moving into PTRinfraCons Serene was the best decision we made. The amenities are top-notch and the community is wonderful!",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
     },
     {
       name: "Rajesh Kumar",
       location: "PTRinfraCons Elite Villas",
       text: "The quality of construction and attention to detail is exceptional. Truly a landmark of trust.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
     },
     {
       name: "Anitha Reddy",
       location: "PTRinfraCons Skyline",
       text: "Living here feels like a dream. The views are breathtaking and the location couldn't be better!",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
+      image:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
     },
   ];
 
@@ -80,7 +83,7 @@ const Index = () => {
 
       {/* Amenities & Lifestyle */}
       <div>
-        <ConstructionPackages></ConstructionPackages>
+        <ConstructionPackages />
       </div>
       <section className="section-padding bg-accent/30">
         <div className="container px-4">
@@ -147,11 +150,11 @@ const Index = () => {
         <div className="container px-4">
           <div className="text-center mb-12 animate-fade-in">
             <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4">
-            What Our Residents Say
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Hear from the families who call PTRinfraCons home
-          </p>
+              What Our Residents Say
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Hear from the families who call PTRinfraCons home
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
@@ -186,12 +189,15 @@ const Index = () => {
           <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto animate-fade-in">
             Experience the PTRinfraCons difference firsthand. Our team is ready to show you around.
           </p>
+
+          {/* ✅ Updated button with Link */}
           <Button
+            asChild
             variant="outline"
             size="lg"
             className="bg-card text-foreground hover:bg-card/90 border-0 shadow-lg animate-fade-in"
           >
-            Book a Visit
+            <Link to="/enquire">Book a Visit</Link>
           </Button>
         </div>
       </section>
@@ -202,7 +208,6 @@ const Index = () => {
       <div className="fixed bottom-6 right-6 z-40 animate-float">
         <Button variant="secondary" size="lg" className="shadow-xl rounded-full h-14 px-8">
           <Link to="/enquire">Enquire Now</Link>
-         
         </Button>
       </div>
     </div>
