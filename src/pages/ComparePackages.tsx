@@ -18,7 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const base =
-    "inline-flex items-center justify-center rounded-md font-semibold focus:outline-none";
+    "inline-flex items-center justify-center rounded-md font-semibold focus:outline-none transition-all";
   const variants: Record<string, string> = {
     primary: "bg-red-500 text-white hover:bg-red-600",
     outline: "bg-card text-foreground hover:bg-card/90 border",
@@ -41,8 +41,20 @@ const Button: React.FC<ButtonProps> = ({
 
 const ComparePackages = () => {
   const [activeTab, setActiveTab] = useState("homes");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState("Select Location");
 
-  // 🏠 HOMES PACKAGES (each plan has different content)
+  const locations = [
+    "Vijayawada",
+    "Guntur",
+    "Visakhapatnam",
+    "Nellore",
+    "Tirupati",
+    "Anantapur",
+    "Kurnool",
+    "Kadapa",
+  ];
+
   const homes = [
     { name: "Basic", price: "₹1900 per sqft" },
     { name: "Classic", price: "₹2155 per sqft" },
@@ -54,49 +66,54 @@ const ComparePackages = () => {
     STRUCTURE: {
       Steel: [
         "Bondex / Radha / Tirumala",
-        "JSW One / SAIL/ Vizag",
-        "JSW One / SAIL/ Vizag",
-        "JSW One / SAIL/ Vizag",
+        "JSW One / SAIL / Vizag",
+        "JSW One / SAIL / Vizag",
+        "JSW One / SAIL / Vizag",
       ],
       Cement: [
-        "Bharathi / Zuari / Dalmia ",
-        "Bharathi / Zuari / Dalmia ",
-        " Ultratech / Ramco Supercrete / ACC",
-        " Ultratech / Ramco Supercrete / ACC",
+        "Bharathi / Zuari / Dalmia",
+        "Bharathi / Zuari / Dalmia",
+        "Ultratech / Ramco Supercrete / ACC",
+        "Ultratech / Ramco Supercrete / ACC",
       ],
+      Aggregates: ["✅", "✅", "✅", "✅"],
+      "Block Work": ["✅", "✅", "✅", "✅"],
+      "RCC Mix": ["✅", "✅", "Ultratech", "Ultratech"],
+      "Ceiling Height": ["✅", "✅", "✅", "✅"],
     },
     KITCHEN: {
-      "Wall Dado": [
-        "Ceramic Tiles up to ₹120/sqft",
-        "Vitrified Tiles up to ₹180/sqft",
-        "Italian Marble up to ₹230/sqft",
-        "Granite/Marble Designer up to ₹280/sqft",
+      "Ceramic Wall Dado": [
+        "Upto ₹30/sqft",
+        "Upto ₹50/sqft",
+        "Upto ₹70/sqft",
+        "Upto ₹80/sqft",
       ],
       Sink: [
-        "Single SS Sink ₹5,000",
-        "Kaff Sink ₹10,000",
-        "Franke Sink ₹15,000",
-        "Franke Premium ₹20,000",
+        "Upto ₹3000 (Single bowl SS)",
+        "Upto ₹6000 (Single bowl SS)",
+        "Upto ₹8000 (Futura / Carysil)",
+        "Upto ₹8000 (Futura / Carysil)",
       ],
-      "Sink Faucet": [
-        "Jaquar ₹2,000",
-        "Hindware ₹4,000",
-        "Grohe ₹6,000",
-        "Kohler ₹8,000",
+      "Sink Faucet": ["Upto ₹1200", "Upto ₹1900", "Upto ₹3400", "Upto ₹3400"],
+      "Sink Accessories": [
+        "ISI Marked",
+        "Hindware / Parryware / Jaquar",
+        "Hindware / Parryware / Jaquar",
+        "Hindware / Parryware / Jaquar",
       ],
     },
     BATHROOM: {
-      "Wall Dado": [
-        "Ceramic Tiles ₹120/sqft",
-        "Vitrified ₹180/sqft",
-        "Italian ₹250/sqft",
-        "Italian Premium ₹300/sqft",
+      "Ceramic Wall Dado": [
+        "Upto ₹30/sqft",
+        "Upto ₹50/sqft",
+        "Upto ₹70/sqft",
+        "Upto ₹80/sqft",
       ],
-      "CP Fittings": [
-        "ESSCO ₹10k",
-        "Jaquar ₹15k",
-        "Grohe ₹20k",
-        "Kohler ₹25k",
+      "Sanitary & CP Fittings": [
+        "₹29,000 / 1000sqft (Hindware)",
+        "₹49,000 / 1000sqft (Parryware)",
+        "₹69,000 / 1000sqft (Jaquar/equivalent)",
+        "₹79,000 / 1000sqft (Kohler/equivalent)",
       ],
       "Water Heater Provision": ["✅", "✅", "✅", "✅"],
     },
@@ -105,7 +122,7 @@ const ComparePackages = () => {
         "Teak Frame + Flush Door",
         "Teak Veneer Finish Door",
         "Solid Teak Door",
-        "Designer Veneer Door with Polishing",
+        "Designer Veneer Door + Polish",
       ],
       "Internal Doors": [
         "Flush Door ₹10k",
@@ -116,7 +133,6 @@ const ComparePackages = () => {
     },
   };
 
-  // 💎 LUXURY HOMES
   const luxury = [
     { name: "Freesia", price: "₹4910 per sqft" },
     { name: "Delhia", price: "₹5540 per sqft" },
@@ -131,6 +147,10 @@ const ComparePackages = () => {
         "TATA EQR 700 Grade",
       ],
       Cement: ["Ultratech OPC 53", "Birla Super Premium", "ACC Gold Elite"],
+      Aggregates: ["✅", "✅", "✅"],
+      "Block Work": ["✅", "✅", "✅"],
+      "RCC Mix": ["M25 Design Mix", "M30 Ready Mix", "M35 Ready Mix"],
+      "Ceiling Height": ["10 ft", "10.5 ft", "11 ft"],
     },
     KITCHEN: {
       "Wall Dado": [
@@ -140,11 +160,17 @@ const ComparePackages = () => {
       ],
       Sink: ["Franke ₹20k", "Franke Premium ₹25k", "Blanco ₹30k"],
       "Sink Faucet": ["Grohe ₹8k", "Kohler ₹12k", "Kohler Designer ₹18k"],
+      "Sink Accessories": [
+        "Hindware / Jaquar",
+        "Grohe / Kohler",
+        "Hansgrohe / Kohler",
+      ],
     },
     BATHROOM: {
       "Wall Dado": ["Italian ₹250/sqft", "Italian ₹300/sqft", "Onyx ₹400/sqft"],
       "CP Fittings": ["Grohe ₹25k", "Kohler ₹30k", "Hansgrohe ₹40k"],
       "Water Heater Provision": ["✅", "✅", "✅"],
+      "Jacuzzi / Shower Panel": ["✅", "Optional", "Included"],
     },
     "DOORS & WINDOWS": {
       "Main Door": [
@@ -152,16 +178,17 @@ const ComparePackages = () => {
         "Designer Teak with Carving",
         "Solid Teak Imported Veneer",
       ],
-      "Internal Doors": [
-        "Veneer ₹25k",
-        "Veneer ₹30k",
-        "Veneer ₹35k",
+      "Internal Doors": ["Veneer ₹25k", "Veneer ₹30k", "Veneer ₹35k"],
+      "Windows": [
+        "UPVC (Fenesta / equivalent)",
+        "Aluminium (Hindalco)",
+        "Slim Aluminium Frames (Saint-Gobain Glass)",
       ],
     },
   };
 
   const renderTable = (packages, features) => (
-    <div className="overflow-x-auto shadow-lg rounded-2xl border border-yellow-300 bg-white mt-6">
+    <div className="overflow-x-auto shadow-lg rounded-2xl border border-yellow-300 bg-white mt-8">
       <table className="min-w-full text-sm">
         <thead className="bg-gradient-to-r from-yellow-400 to-red-500 text-white">
           <tr>
@@ -200,81 +227,101 @@ const ComparePackages = () => {
   );
 
   return (
-    <div className="min-h-screen bg-yellow-50 text-gray-800 p-6">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <Navbar />
-          <h1 className="text-4xl font-bold text-red-600 mb-2 py-12">
-            Compare Packages
-          </h1>
-          <p className="text-gray-600">
-            Switch between Homes and Luxury Homes to explore unique features
-          </p>
+    <div className="min-h-screen bg-yellow-50 text-gray-800">
+      <Navbar />
+
+      {/* Header Section with Better Spacing */}
+      <div className="max-w-7xl mx-auto text-center pt-20 pb-8">
+        <h1 className="text-5xl font-bold text-red-600 mb-4">Compare Packages</h1>
+        <p className="text-lg text-gray-700 max-w-2xl mx-auto leading-relaxed">
+          Explore and compare our Home and Luxury Home packages to find the perfect fit for your dream home.
+        </p>
+      </div>
+
+      {/* Location + Tabs */}
+      <div className="flex justify-center items-center space-x-6 mb-10">
+        <div className="relative">
+          <Button
+            variant="secondary"
+            size="md"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="w-60 rounded-full py-3 text-base shadow-lg"
+          >
+            {selectedLocation}
+          </Button>
+          {isDropdownOpen && (
+            <div className="absolute mt-2 w-60 bg-white border border-yellow-400 rounded-2xl shadow-xl z-10">
+              {locations.map((loc) => (
+                <div
+                  key={loc}
+                  className="px-4 py-2 hover:bg-yellow-100 cursor-pointer text-left text-sm text-gray-700 rounded-lg"
+                  onClick={() => {
+                    setSelectedLocation(loc);
+                    setIsDropdownOpen(false);
+                  }}
+                >
+                  {loc}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* Tabs */}
-        <div className="flex justify-center space-x-4">
-          <button
-            onClick={() => setActiveTab("homes")}
-            className={`px-6 py-2 rounded-full font-semibold border-2 ${
-              activeTab === "homes"
-                ? "bg-red-500 border-red-500 text-white shadow-lg"
-                : "border-yellow-400 text-red-600 bg-yellow-100 hover:bg-yellow-200"
-            }`}
-          >
-            Homes
-          </button>
-          <button
-            onClick={() => setActiveTab("luxury")}
-            className={`px-6 py-2 rounded-full font-semibold border-2 ${
-              activeTab === "luxury"
-                ? "bg-red-500 border-red-500 text-white shadow-lg"
-                : "border-yellow-400 text-red-600 bg-yellow-100 hover:bg-yellow-200"
-            }`}
-          >
-            Luxury Homes
-          </button>
-        </div>
+        <button
+          onClick={() => setActiveTab("homes")}
+          className={`px-8 py-2 rounded-full font-semibold border-2 transition ${
+            activeTab === "homes"
+              ? "bg-red-500 border-red-500 text-white shadow-lg"
+              : "border-yellow-400 text-red-600 bg-yellow-100 hover:bg-yellow-200"
+          }`}
+        >
+          Homes
+        </button>
+        <button
+          onClick={() => setActiveTab("luxury")}
+          className={`px-8 py-2 rounded-full font-semibold border-2 transition ${
+            activeTab === "luxury"
+              ? "bg-red-500 border-red-500 text-white shadow-lg"
+              : "border-yellow-400 text-red-600 bg-yellow-100 hover:bg-yellow-200"
+          }`}
+        >
+          Luxury Homes
+        </button>
+      </div>
 
-        {/* Dynamic Table */}
+      {/* Table */}
+      <div className="max-w-7xl mx-auto px-4">
         {activeTab === "homes"
           ? renderTable(homes, homesFeatures)
           : renderTable(luxury, luxuryFeatures)}
-
-        {/* Footer */}
-        <div className="text-center mt-10 text-sm text-gray-600">
-          <p>
-            *All fittings can be customized at additional cost. Contact us for
-            complete details.
-          </p>
-        </div>
       </div>
 
-      {/* CTA Section */}
-      <section className="section-padding bg-gradient-to-r from-primary to-secondary text-primary-foreground">
-        <div className="container px-4 text-center">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-4 animate-fade-in">
-            Schedule a Site Visit Today
-          </h2>
-          <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto animate-fade-in">
-            Experience the PTRinfraCons difference firsthand. Our team is ready
-            to show you around.
-          </p>
+      {/* Footer Section */}
+      <div className="text-center mt-10 text-sm text-gray-600 px-4">
+        <p>*All fittings can be customized at additional cost. Contact us for complete details.</p>
+      </div>
+
+      {/* CTA */}
+      <section className="section-padding bg-gradient-to-r from-red-500 to-yellow-400 text-white text-center py-16 mt-12 rounded-2xl mx-4">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">Schedule a Site Visit Today</h2>
+        <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
+          Experience the PTRinfraCons difference firsthand. Our team is ready to show you around.
+        </p>
+        <Link to="/bookconsultation">
           <Button
             variant="outline"
             size="lg"
-            className="bg-card text-foreground hover:bg-card/90 border-0 shadow-lg animate-fade-in"
+            className="bg-white text-red-600 hover:bg-yellow-100 border-0 shadow-lg"
           >
             Book a Visit
           </Button>
-        </div>
+        </Link>
       </section>
 
       <Footer />
 
-      {/* Floating Enquiry Button */}
-      <div className="fixed bottom-6 right-6 z-40 animate-float">
+      {/* Floating Button */}
+      <div className="fixed bottom-6 right-6 z-40">
         <Button
           variant="secondary"
           size="lg"
